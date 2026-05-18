@@ -1,0 +1,46 @@
+services:
+  api-gateway:
+    build: ./api-gateway
+    ports:
+      - "8000:8000"
+    env_file: .env
+    depends_on:
+      - user-service
+      - product-service
+      - cart-service
+      - order-service
+      - payment-service
+
+  user-service:
+    build: ./user-service
+    ports:
+      - "8001:8001"
+    env_file: .env
+
+  product-service:
+    build: ./product-service
+    ports:
+      - "8002:8002"
+    env_file: .env
+
+  cart-service:
+    build: ./cart-service
+    ports:
+      - "8003:8003"
+    env_file: .env
+
+  order-service:
+    build: ./order-service
+    ports:
+      - "8004:8004"
+    env_file: .env
+    depends_on:
+      - payment-service
+      - cart-service
+      - product-service
+
+  payment-service:
+    build: ./payment-service
+    ports:
+      - "8005:8005"
+    env_file: .env

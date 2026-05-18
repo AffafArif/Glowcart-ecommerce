@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body { background: #fffaf7; color: #241816; }
+.btn { @apply rounded-2xl px-4 py-2 font-semibold transition; }
+.btn-primary { @apply btn bg-stone-900 text-white hover:bg-stone-700; }
+.btn-light { @apply btn bg-white border border-stone-200 hover:bg-stone-50; }
+.card { @apply bg-white rounded-3xl border border-stone-100 shadow-sm; }
+.input { @apply w-full rounded-2xl border border-stone-200 px-4 py-3 outline-none focus:ring-2 focus:ring-stone-300; }
