@@ -143,16 +143,20 @@ async def proxy(path: str, request: Request):
     body = await request.body()
 
     # Forward important headers but avoid compression/host issues.
-    forwarded_headers = {
-        key: value
-        for key, value in request.headers.items()
-        if key.lower() not in {
-            "host",
-            "content-length",
-            "accept-encoding",
-            "connection",
-        }
-    }
+    # forwarded_headers = {
+    #     key: value
+    #     for key, value in request.headers.items()
+    #     if key.lower() not in {
+    #         "host",
+    #         "content-length",
+    #         "accept-encoding",
+    #         "connection",
+    #     }
+    # }
+    forwarded_headers = dict(request.headers)
+    forwarded_headers.pop("host", None)
+    forwarded_headers.pop("content-length", None)
+    forwarded_headers.pop("accept-encoding", None)
 
     async with httpx.AsyncClient(timeout=30, follow_redirects=True) as client:
         resp = await client.request(
